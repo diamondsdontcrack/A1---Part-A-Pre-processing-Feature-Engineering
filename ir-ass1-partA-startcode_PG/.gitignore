@@ -1,0 +1,45 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test, type-checker, and coverage caches
+.pytest_cache/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+cover/
+
+# Local virtual environments
+.venv/
+venv/
+env/
+ENV/
+.conda/
+conda/
+__pypackages__/
+
+# Local environment files
+.env
+.envrc
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
+
+# Jupyter local checkpoints
+.ipynb_checkpoints/
+
+# Temporary local outputs
+utils/_tmp/
+test_sanity/_tmp/
+evaluation_results/
+cache/*
+!cache/.gitkeep
+
+# Logs
+*.log
