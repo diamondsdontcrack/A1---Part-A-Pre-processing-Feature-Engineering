@@ -7,21 +7,30 @@ This file concerns engineering development evidence, not method design or experi
 
 # Engineering Development Evidence
 
-## Excerpt 1 — Failed self-check: `make_positions`
+## Excerpt 1 — Failed self-check: `tfidf_variants(..., tf_mode='log'/'bm25')`
 
-While implementing Task 2, the provided self-checker reported that `make_positions()` was not returning the required dictionary:
+While implementing Task 3, the provided self-checker reported that `tfidf_variants(..., tf_mode='log'/'bm25')` has a KeyError
 
 ```text
-FAIL - Task2: make_positions(...) public example
-       AssertionError: Expected dict, got <class 'NoneType'>
+FAIL - Task3: tfidf_variants(..., tf_mode='log'/'bm25') runs + returns correct shapes
+       KeyError: 'cat'
 ```
 
-The function still contained its starter `pass`, so Python implicitly returned `None`. I implemented the position mapping by iterating through the token list with `enumerate()` and appending each 0-based index to the corresponding token.
+The problem was in my code where I did
+vocab = {}
+for index, term in enumerate(terms):
+       vocab = {term: index}
+
+I had intended to add each term to vocab but the last line creates a new dictionary and replaces the previous one on each iteration leaving a dictionary with only 1 term.
+The change was changing vocab = {term: index} to vocab[term] = index.
+
+This will add or update the key-value pair inside the existing dictionary and builds it progressively.
 
 After the change, I reran the self-checker:
 
 ```text
-PASS - Task2: make_positions(...) public example
+PASS - Task3: tfidf_variants(..., tf_mode='log'/'bm25') runs + returns correct shapes
+       log/bm25 produced finite matrices with consistent shapes
 ```
 
 ## Excerpt 2 — Incorrect Task 1 retrieval output
