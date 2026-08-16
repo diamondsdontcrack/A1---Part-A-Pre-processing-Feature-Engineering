@@ -9,7 +9,7 @@ This file concerns engineering development evidence, not method design or experi
 
 ## Excerpt 1 — Failed self-check: `tfidf_variants(..., tf_mode='log'/'bm25')`
 
-While implementing Task 3, the provided self-checker reported that `tfidf_variants(..., tf_mode='log'/'bm25')` has a KeyError
+While implementing Task 3, the provided self-checker reported:
 
 ```text
 FAIL - Task3: tfidf_variants(..., tf_mode='log'/'bm25') runs + returns correct shapes
@@ -21,8 +21,12 @@ vocab = {}
 for index, term in enumerate(terms):
        vocab = {term: index}
 
-I had intended to add each term to vocab but the last line creates a new dictionary and replaces the previous one on each iteration leaving a dictionary with only 1 term.
-The change was changing vocab = {term: index} to vocab[term] = index.
+and later
+
+df = {term: 0}
+
+I had intended to add each term to vocab but the last line creates a new dictionary and replaces the previous one on each iteration leaving a dictionary with only 1 term. Because df was repeatedly replaced, by the time df[term] +=1 was executed, most keys did not exist, including 'cat'.
+The change was changing vocab = {term: index} to vocab[term] = index, and df = {term:0} to df[term] = 0
 
 This will add or update the key-value pair inside the existing dictionary and builds it progressively.
 
